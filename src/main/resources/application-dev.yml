@@ -1,0 +1,16 @@
+# 开发环境 测试环境
+server:
+  port: 8081 # 默认端口
+  servlet:
+    context-path: / #servlet-content
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:8889/dbgirl
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
