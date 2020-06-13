@@ -4,11 +4,13 @@ import com.imooc.domain.Girl;
 import com.imooc.domain.Result;
 import com.imooc.repository.GirlRepository;
 import com.imooc.service.GirlService;
+import com.imooc.utils.HelpUtil;
 import com.imooc.utils.ResultUtil;
-import org.hibernate.annotations.Parameter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,8 +37,21 @@ public class GirlController {
      * @return
      */
     @GetMapping(value = "/girls")
-    public List<Girl> girlList() {
+    public List<Girl> girlList(){
         logger.info("girlList");
+
+        String str = HelpUtil.md5("33");
+        logger.info("33的MD5是" + str);
+
+        //查询1到20岁的女孩
+        System.out.println(girlRepository.findGirlsByAgeBetween(1,20));
+
+        //获取jwt token
+        String token = HelpUtil.getToken("1");
+        logger.info(token);
+        //解析token
+        String id = HelpUtil.verifyToken(token);
+        logger.info(id);
         return girlRepository.findAll();
     }
 
@@ -97,7 +112,7 @@ public class GirlController {
     }
 
     @GetMapping(value = "/girls/getAge/{id}")
-    public void getAge(@PathVariable("id") Integer id) throws Exception{
+    public void getAge(@PathVariable("id") Integer id) throws Exception {
         girlService.getAge(id);
     }
 }

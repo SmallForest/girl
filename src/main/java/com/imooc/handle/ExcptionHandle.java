@@ -25,7 +25,8 @@ public class ExcptionHandle {
             GirlExcption girlExcption = (GirlExcption) e;
             return ResultUtil.error(girlExcption.getCode(), girlExcption.getMessage());
         } else {
-            logger.error("【系统异常】{}",e);
+            logger.error("【系统异常】{}");
+            logger.error(e.getMessage());
             return ResultUtil.error(-1, "未知错误");
         }
     }

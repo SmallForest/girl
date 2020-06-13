@@ -6,8 +6,11 @@ package com.imooc.enums;
 public enum ResultEnum {
     UNKNOW_ERROR(-1, "未知错误"),
     SUCCESS(0, "成功"),
-    PRIMARY_SCHOOL(100, "你在上小学吧？"),
-    MIDDLE_SCHOOL(101, "你在中学吧"),
+    PRIMARY_SCHOOL(1, "你在上小学吧？"),
+    MIDDLE_SCHOOL(2, "你在中学吧"),
+    EMPTY_TIMESTAMP(3, "header中timestamp参数必传"),
+    EMPTY_SIGN(4, "header中sign参数必传"),
+    CHECK_SIGN(4, "sign参数校验失败"),
     ;
 
     private Integer code;
