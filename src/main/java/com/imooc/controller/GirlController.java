@@ -46,7 +46,7 @@ public class GirlController {
      * @return
      */
     @PostMapping(value = "/girls")
-    public Result<Girl> girlAdd(@Valid Girl girl, BindingResult bindingResult) {//@Valid校验注解 BindingResult接收返回值
+    public Result girlAdd(@Valid Girl girl, BindingResult bindingResult) {//@Valid校验注解 BindingResult接收返回值
 
         if (bindingResult.hasErrors()) {
 
