@@ -4,6 +4,10 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import io.rong.RongCloud;
+import io.rong.methods.user.User;
+import io.rong.models.response.TokenResult;
+import io.rong.models.user.UserModel;
 import org.springframework.util.DigestUtils;
 
 import java.lang.reflect.Array;
@@ -75,5 +79,29 @@ public class HelpUtil {
             //Invalid token
             return "";
         }
+    }
+
+    /**
+     * 集成融云的例子
+     * @throws Exception
+     */
+    public static void sendMsg() throws Exception{
+        String appKey = "appKey";
+        String appSecret = "appSecret";
+
+        RongCloud rongCloud = RongCloud.getInstance(appKey, appSecret);
+        User user = rongCloud.user;
+
+        /**
+         * API 文档: http://www.rongcloud.cn/docs/server_sdk_api/user/user.html#register
+         *
+         * 注册用户，生成用户在融云的唯一身份标识 Token
+         */
+        UserModel userModel = new UserModel()
+                .setId("hHjap87")
+                .setName("RongCloud")
+                .setPortrait("http://www.rongcloud.cn/images/logo.png");
+        TokenResult result = user.register(userModel);
+        System.out.println("getToken:  " + result.toString());
     }
 }

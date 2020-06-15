@@ -106,6 +106,15 @@ public class HttpAspect {
                 logger.info("解析token得到的id是{}", id);
             }
         }
+
+        //todo test
+        try {
+
+            HelpUtil.sendMsg();
+
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
     }
 
     @After("log()")
