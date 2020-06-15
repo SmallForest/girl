@@ -1,5 +1,6 @@
 # 开发环境 测试环境
 key: 8jj&66dd
+not_need_login_method: /girls,/ddd # 此处的method不用传递token
 server:
   port: 8081 # 默认端口
   servlet:

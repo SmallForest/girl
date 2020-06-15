@@ -10,7 +10,9 @@ public enum ResultEnum {
     MIDDLE_SCHOOL(2, "你在中学吧"),
     EMPTY_TIMESTAMP(3, "header中timestamp参数必传"),
     EMPTY_SIGN(4, "header中sign参数必传"),
-    CHECK_SIGN(4, "sign参数校验失败"),
+    CHECK_SIGN(5, "sign参数校验失败"),
+    CHECK_TOKEN(6, "token无效"),
+    MUST_LOGIN(7, "token必须传递"),
     ;
 
     private Integer code;

@@ -1,12 +1,9 @@
 package com.imooc.utils;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.DigestUtils;
 
 import java.lang.reflect.Array;
@@ -17,10 +14,6 @@ import java.util.Map;
  * 项目工具类包
  */
 public class HelpUtil {
-    //获取配置文件中的key
-    @Value("${key}")
-    private static String key;
-
     /**
      * md5
      *
@@ -68,6 +61,12 @@ public class HelpUtil {
         return token;
     }
 
+    /**
+     * 验证JWT token
+     *
+     * @param token
+     * @return
+     */
     public static String verifyToken(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);

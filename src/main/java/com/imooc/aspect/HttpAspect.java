@@ -15,6 +15,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 
 
 /**
@@ -30,6 +31,10 @@ public class HttpAspect {
     //获取配置文件中的key
     @Value("${key}")
     private String key;
+
+    //获取配置文件中的key
+    @Value("${not_need_login_method}")
+    private String not_need_login_method;
 
 
     /**
@@ -73,15 +78,34 @@ public class HttpAspect {
         if (HelpUtil.isNull(sign) || HelpUtil.isEmpty(sign)) {
             throw new GirlExcption(ResultEnum.EMPTY_SIGN);
         }
-        System.out.println(this.key);
         if (!sign.equals(HelpUtil.md5(this.key + httpServletRequest.getRequestURI() + (new String(timestamp))))) {
             throw new GirlExcption(ResultEnum.CHECK_SIGN);
         }
 
         // todo 请求时间校验
 
-        // token校验(jwt)
+        // token校验(jwt) 除了几个指定的uri不用传递token，其他的都需要传递token
+        String token = httpServletRequest.getHeader("token");
+        // todo 根据not_need_login_method跳过校验
+        String[] not_need_login_method = this.not_need_login_method.split(",");
 
+        // uri在数组not_need_login_method的路由不必检查token是否传递是否为真值
+        if (!Arrays.asList(not_need_login_method).contains(httpServletRequest.getRequestURI())) {
+            if (HelpUtil.isNull(token) || HelpUtil.isEmpty(token)) {
+                throw new GirlExcption(ResultEnum.MUST_LOGIN);//必须登录之后传递token
+            }
+        }
+
+
+        // token不为null并且不为空
+        if (!HelpUtil.isNull(token) && !HelpUtil.isEmpty(token)) {
+            String id = HelpUtil.verifyToken(token);
+            if (id.equals("")) {
+                throw new GirlExcption(ResultEnum.CHECK_TOKEN);
+            } else {
+                logger.info("解析token得到的id是{}", id);
+            }
+        }
     }
 
     @After("log()")
