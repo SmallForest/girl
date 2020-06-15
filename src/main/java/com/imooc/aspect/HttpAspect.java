@@ -86,7 +86,7 @@ public class HttpAspect {
 
         // token校验(jwt) 除了几个指定的uri不用传递token，其他的都需要传递token
         String token = httpServletRequest.getHeader("token");
-        // todo 根据not_need_login_method跳过校验
+        // 根据not_need_login_method跳过校验
         String[] not_need_login_method = this.not_need_login_method.split(",");
 
         // uri在数组not_need_login_method的路由不必检查token是否传递是否为真值
